@@ -11,13 +11,13 @@
         :root {
             --bg-base: #000000;
             --btn-bg: #09090b;
-            --btn-border: #27272a;
+            --btn-border: #222222;
             --btn-hover: #18181b;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             
-            /* Popup Colors */
-            --ad-yellow: #FFD700;
+            /* Minecraft Nether Popup Colors */
+            --ad-purple: #b057f8;
             --ad-bg: #111111;
         }
 
@@ -44,7 +44,7 @@
         /* --- PROFIL BEREICH --- */
         .profile-section {
             display: flex; flex-direction: column; align-items: center; 
-            margin-bottom: 30px; text-align: center;
+            margin-bottom: 35px; text-align: center;
         }
         
         .profile-avatar {
@@ -56,12 +56,12 @@
         }
         
         .profile-name {
-            font-size: 1.5rem; margin: 0 0 4px 0; color: #fff;
+            font-size: 1.6rem; margin: 0 0 4px 0; color: #fff;
             letter-spacing: 0.05em; 
         }
         
         .profile-bio {
-            font-size: 0.9rem; font-weight: normal; color: var(--text-muted); margin: 0;
+            font-size: 0.95rem; font-weight: normal; color: var(--text-muted); margin: 0;
         }
 
         /* --- LINKS (FLAT & CLEAN) --- */
@@ -72,14 +72,15 @@
         .link-btn {
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; background: var(--btn-bg); color: #fff; text-decoration: none;
-            padding: 16px 20px; border-radius: 8px; font-size: 1rem;
-            transition: background 0.15s ease, border-color 0.15s ease; box-sizing: border-box; 
+            padding: 18px 20px; border-radius: 4px; font-size: 1rem;
+            transition: background 0.1s ease, border-color 0.1s ease; box-sizing: border-box; 
             border: 1px solid var(--btn-border);
         }
 
+        /* Kein Bounce mehr, nur noch cleaner Farbwechsel */
         .link-btn:hover {
             background: var(--btn-hover);
-            border-color: #3f3f46;
+            border-color: #444;
         }
 
         .btn-left { display: flex; align-items: center; flex: 1; }
@@ -87,53 +88,54 @@
         .btn-right { flex: 1; display: flex; justify-content: flex-end; }
 
         .link-icon { width: 20px; height: 20px; fill: #fff; }
-        .dots-icon { width: 20px; height: 20px; fill: #555; transition: fill 0.15s ease;}
+        .dots-icon { width: 20px; height: 20px; fill: #444; transition: fill 0.1s ease;}
 
         .link-btn:hover .dots-icon { fill: #888; }
 
-        /* --- KLEINES SCHIEFES POPUP (BEWERBUNG) --- */
+        /* --- MINECRAFT SCHIEFES POPUP (BEWERBUNG) --- */
         .ad-popup {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             width: 220px;
             background: var(--ad-bg);
-            border: 2px solid #222;
-            border-radius: 6px;
+            /* Echter Minecraft Look: Harter dicker Rand, blockig, fetter Schatten */
+            border: 4px solid #000;
+            border-radius: 0;
             padding: 15px;
             box-sizing: border-box;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 6px 6px 0px rgba(0,0,0,1), inset 2px 2px 0px rgba(255,255,255,0.05);
             transform: rotate(-3deg);
             z-index: 999999;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-            display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;
         }
 
         .ad-popup:hover {
-            transform: rotate(0deg);
-            border-color: #444;
+            transform: rotate(0deg) translate(-2px, -2px);
+            box-shadow: 8px 8px 0px rgba(0,0,0,1), inset 2px 2px 0px rgba(255,255,255,0.05);
         }
 
         .ad-title {
-            color: var(--ad-yellow); font-size: 1.1rem; margin: 0;
-            line-height: 1.2; text-shadow: 1px 1px 0px #000;
+            color: var(--ad-purple); font-size: 1.15rem; margin: 0;
+            line-height: 1.2; text-shadow: 2px 2px 0px #000;
         }
 
         .ad-desc {
-            color: #aaa; font-size: 0.8rem; margin: 0; line-height: 1.4; font-family: "Segoe UI", sans-serif;
+            color: #aaa; font-size: 0.85rem; margin: 0; line-height: 1.4; font-family: "Segoe UI", sans-serif;
         }
 
         .ad-btn {
-            background: var(--ad-yellow); color: #000; text-decoration: none;
-            padding: 6px 12px; font-size: 0.85rem; border: 2px solid #000;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;
-            transition: 0.1s; margin-top: 4px;
+            background: var(--ad-purple); color: #fff; text-decoration: none;
+            padding: 8px 12px; font-size: 0.9rem; border: 2px solid #000;
+            box-shadow: 3px 3px 0px rgba(0,0,0,1); display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;
+            transition: 0.1s; margin-top: 5px; text-shadow: 1px 1px 0px #000;
         }
         
-        .ad-btn:hover { background: #ffe44d; transform: translate(-2px, -2px); box-shadow: 4px 4px 0px rgba(0,0,0,0.6); }
-        .ad-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px rgba(0,0,0,0); }
+        .ad-btn:hover { filter: brightness(1.2); transform: translate(-2px, -2px); box-shadow: 5px 5px 0px rgba(0,0,0,1); }
+        .ad-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px rgba(0,0,0,1); }
 
-        /* Click Particles (Ganz dezent) */
+        /* Click Particles (Dezent) */
         .click-particle { position: fixed; width: 6px; height: 6px; background: #fff; pointer-events: none; z-index: 999999; animation: particlePop 0.4s ease-out forwards; }
         @keyframes particlePop { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; } }
 
@@ -143,10 +145,12 @@
                 right: 15px;
                 width: 180px;
                 padding: 12px;
+                border-width: 3px;
+                box-shadow: 4px 4px 0px rgba(0,0,0,1);
             }
-            .ad-title { font-size: 0.95rem; }
+            .ad-title { font-size: 0.95rem; text-shadow: 1px 1px 0px #000;}
             .ad-desc { font-size: 0.75rem; }
-            .ad-btn { font-size: 0.8rem; }
+            .ad-btn { font-size: 0.8rem; padding: 6px; }
         }
     </style>
 </head>
@@ -155,7 +159,6 @@
     <div id="linktree-wrapper">
         
         <div class="profile-section">
-            <!-- WICHTIG: Die Datei im GitHub MUSS exakt "profil.png" heißen (alles klein geschrieben) -->
             <img src="profil.png" alt="Lerokes" class="profile-avatar">
             <h1 class="profile-name mc-font">Lerokes</h1>
             <p class="profile-bio">Oioioi</p>
@@ -226,7 +229,7 @@
         </div>
     </div>
 
-    <!-- SCHIEFES POPUP AD (BEWERBUNG) -->
+    <!-- MINECRAFT SCHIEFES POPUP AD (BEWERBUNG) -->
     <div class="ad-popup">
         <h3 class="ad-title mc-font">NICHT VERPASSEN</h3>
         <p class="ad-desc">Unterstütze das Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
