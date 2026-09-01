@@ -11,16 +11,15 @@
         :root {
             --bg-base: #000000;
             --btn-bg: #09090b;
-            --btn-border: #222222;
+            --btn-border: #1f1f22;
             --btn-hover: #151518;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             
-            /* Marketplace & Brief Colors */
+            /* Marketplace Promo Colors */
             --promo-purple: #b057f8;
-            --promo-bg: #151515;
-            --paper-bg: #d1b98b;
-            --paper-border: #3a2818;
+            --promo-yellow: #FFD700;
+            --promo-bg: #2b2b2b; /* Das typische dunkle Grau aus dem Marketplace */
         }
 
         body, html { 
@@ -67,15 +66,15 @@
             font-size: 0.95rem; font-weight: normal; color: var(--text-muted); margin: 0;
         }
 
-        /* --- LINKS (CLEAN) --- */
+        /* --- LINKS (ABSOLUT CLEAN & MINIMALISTISCH) --- */
         .links-container {
-            width: 100%; display: flex; flex-direction: column; gap: 12px;
+            width: 100%; display: flex; flex-direction: column; gap: 10px;
         }
 
         .link-btn {
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; background: var(--btn-bg); color: #fff; text-decoration: none;
-            padding: 16px 20px; border-radius: 8px; font-size: 1rem;
+            padding: 18px 20px; border-radius: 6px; font-size: 1rem;
             transition: all 0.15s ease; box-sizing: border-box; 
             border: 1px solid var(--btn-border);
         }
@@ -94,103 +93,111 @@
 
         .link-btn:hover .dots-icon { fill: #888; }
 
-        /* --- MINECRAFT BRIEF / WIDGET UNTEN RECHTS --- */
-        .mc-letter-container {
+
+        /* --- SCHWEBENDER BRIEF & MARKETPLACE POPUP --- */
+        .mc-widget-container {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 30px;
+            right: 30px;
             z-index: 999999;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
 
-        /* Das geschlossene Brief-Icon (Sieht aus wie ein Minecraft-Item) */
-        .mc-letter-icon-btn {
-            background-color: var(--paper-bg);
-            border: 3px solid var(--paper-border);
-            width: 55px; height: 55px;
-            display: flex; justify-content: center; align-items: center;
+        /* 1. Der reine, schwebende Minecraft-Brief (OHNE Box) */
+        .mc-floating-letter {
+            width: 48px; height: 48px;
             cursor: pointer;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.9), inset 2px 2px 0px rgba(255,255,255,0.4);
-            transition: transform 0.1s ease;
-            transform: rotate(-4deg);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Gibt dem Briefbild einen eigenen, freigestellten Schatten */
+            filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.8));
+            transform: rotate(-5deg);
         }
         
-        .mc-letter-icon-btn:hover {
-            transform: scale(1.1) rotate(0deg);
+        .mc-floating-letter:hover {
+            transform: scale(1.15) rotate(0deg);
         }
 
-        .mc-letter-icon-btn img {
-            width: 32px; height: 32px;
-            image-rendering: pixelated;
+        .mc-floating-letter img {
+            width: 100%; height: 100%;
+            image-rendering: pixelated; /* Erhält den Pixel-Look */
         }
 
-        /* Das große, aufgeklappte Marketplace-Popup */
-        .mc-promo-popup {
+        /* 2. Die aufklappende Marketplace Anzeige */
+        .mc-promo-card {
             position: absolute;
-            bottom: 70px;
+            bottom: 60px;
             right: 0;
-            width: 260px;
+            width: 280px;
             background-color: var(--promo-bg);
-            border: 3px solid #333;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
-            box-shadow: 0px 15px 35px rgba(0,0,0,0.95), 0px 0px 25px rgba(176, 87, 248, 0.2);
-            border-radius: 6px;
-            display: flex; flex-direction: column; gap: 12px; text-align: center;
-            /* Animation fürs Auf- und Zuklappen */
+            border-radius: 2px;
+            /* Der fette gelbe Glow aus dem Marketplace */
+            box-shadow: 0px 0px 50px rgba(255, 215, 0, 0.4), 0px 10px 20px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; gap: 12px;
+            
+            /* Animation fürs Aufklappen */
             transform-origin: bottom right;
             transform: scale(0);
             opacity: 0;
             pointer-events: none;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Klasse, wenn der Brief geöffnet ist */
-        .mc-letter-container.open .mc-promo-popup {
-            transform: scale(1) rotate(-2deg);
+        /* Klasse "open", die durch JavaScript hinzugefügt wird */
+        .mc-widget-container.open .mc-promo-card {
+            transform: scale(1);
             opacity: 1;
             pointer-events: auto;
         }
 
+        /* Kopfbereich mit Schließen-Button */
         .mc-promo-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 2px;
+            display: flex; justify-content: flex-end; align-items: center;
+            margin-bottom: -5px;
         }
-
-        .mc-promo-tag {
-            background: rgba(176, 87, 248, 0.15); color: var(--promo-purple);
-            font-size: 0.65rem; padding: 3px 6px; border: 1px solid var(--promo-purple);
-            letter-spacing: 0.05em;
-        }
-
         .mc-close-btn {
-            background: none; border: none; color: #888; font-size: 1.2rem; cursor: pointer; padding: 0; line-height: 1;
+            background: none; border: none; color: #888; font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1; transition: color 0.1s;
         }
         .mc-close-btn:hover { color: #fff; }
 
+        /* Das Bild in der Anzeige (wie das Superman-Bild) */
+        .mc-promo-image {
+            width: 100%; height: 90px;
+            background-color: #111;
+            display: flex; justify-content: center; align-items: center;
+            border: 2px solid #1a1a1a;
+            overflow: hidden;
+        }
+        .mc-promo-image img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        /* Titel (Gelb) & Text */
         .mc-promo-title {
-            color: var(--promo-purple); font-size: 1.2rem; margin: 0;
-            line-height: 1.2; text-shadow: 2px 2px 0px #000;
+            color: var(--promo-yellow); font-size: 1.3rem; margin: 0;
+            line-height: 1.1; text-shadow: 2px 2px 0px rgba(0,0,0,0.6);
         }
 
         .mc-promo-desc {
-            color: #bbb; font-size: 0.8rem; margin: 0; line-height: 1.4; 
+            color: #d1d1d1; font-size: 0.85rem; margin: 0; line-height: 1.4; 
             font-family: "Segoe UI", sans-serif;
         }
 
+        /* Button (Lila Nether Style) */
         .mc-promo-btn {
             background-color: var(--promo-purple); 
             color: #fff; text-decoration: none;
-            padding: 9px 14px; font-size: 0.9rem; 
+            padding: 10px 15px; font-size: 0.95rem; 
             border: 2px solid #000;
             box-shadow: 3px 3px 0px rgba(0,0,0,1);
             display: flex; align-items: center; justify-content: center; 
             width: 100%; box-sizing: border-box;
             text-shadow: 1px 1px 0px #000;
             transition: 0.1s;
-            margin-top: 4px;
+            margin-top: 5px;
         }
         
         .mc-promo-btn:hover { 
@@ -209,11 +216,13 @@
         @keyframes particlePop { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; } }
 
         @media (max-width: 768px) {
-            .mc-letter-container { bottom: 15px; right: 15px; }
-            .mc-promo-popup { width: 220px; bottom: 65px; padding: 15px; }
-            .mc-promo-title { font-size: 1rem; }
-            .mc-promo-desc { font-size: 0.75rem; }
-            .mc-promo-btn { font-size: 0.85rem; padding: 7px; }
+            .mc-widget-container { bottom: 20px; right: 20px; }
+            .mc-promo-card { width: 240px; bottom: 55px; padding: 12px; }
+            .mc-promo-image { height: 75px; }
+            .mc-promo-title { font-size: 1.1rem; }
+            .mc-promo-desc { font-size: 0.8rem; }
+            .mc-promo-btn { font-size: 0.85rem; padding: 8px; }
+            .mc-floating-letter { width: 42px; height: 42px; }
         }
     </style>
 </head>
@@ -222,7 +231,7 @@
     <div id="linktree-wrapper">
         
         <div class="profile-section">
-            <img src="profil.png?v=3" alt="Lerokes" class="profile-avatar">
+            <img src="profil.png?v=4" alt="Lerokes" class="profile-avatar">
             <h1 class="profile-name mc-font">Lerokes</h1>
             <p class="profile-bio mc-font">Oioioi</p>
         </div>
@@ -231,7 +240,7 @@
             
             <a href="https://twitch.tv/lerokes" target="_blank" class="link-btn" onclick="triggerParticles(event)">
                 <div class="btn-left">
-                    <svg class="link-icon" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428N22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+                    <svg class="link-icon" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
                 </div>
                 <div class="btn-center mc-font">Twitch</div>
                 <div class="btn-right">
@@ -282,37 +291,43 @@
         </div>
     </div>
 
-    <!-- AUFKLAPPBARES MINECRAFT BRIEF-WIDGET -->
-    <div class="mc-letter-container" id="letterContainer">
+    <!-- AUFKLAPPBARES WIDGET (Nur noch der reine Brief und die Marketplace Karte) -->
+    <div class="mc-widget-container" id="widgetContainer">
+        
         <!-- Das aufgeklappte Marketplace-Popup -->
-        <div class="mc-promo-popup">
+        <div class="mc-promo-card">
             <div class="mc-promo-header">
-                <span class="mc-promo-tag mc-font">Event</span>
                 <button class="mc-close-btn" onclick="toggleLetter(event)">&times;</button>
             </div>
-            <h3 class="mc-promo-title mc-font">Nicht verpassen</h3>
+            
+            <!-- Der Platzhalter für ein Bild im Marketplace-Stil -->
+            <div class="mc-promo-image">
+                <img src="profil.png" alt="Promo" onerror="this.src='https://minotar.net/helm/Lero/150.png'">
+            </div>
+
+            <h3 class="mc-promo-title mc-font">NICHT VERPASSEN</h3>
             <p class="mc-promo-desc">Unterstütze das Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
-            <a href="https://lerokes.com" class="mc-promo-btn mc-font">Jetzt Bewerben</a>
+            <a href="https://lerokes.com" class="mc-promo-btn mc-font">JETZT BEWERBEN</a>
         </div>
 
-        <!-- Das geschlossene Brief-Icon zum Anklicken -->
-        <div class="mc-letter-icon-btn" onclick="toggleLetter(event)" title="Brief öffnen">
-            <!-- Minecraft Brief/Paper Icon -->
-            <img src="https://minecraft.wiki/images/Paper_JE2_BE2.png" alt="Brief" onerror="this.src='https://minotar.net/helm/MHF_Book/32.png'">
+        <!-- Der geschlossene schwebende Brief -->
+        <div class="mc-floating-letter" onclick="toggleLetter(event)" title="Brief öffnen">
+            <img src="https://minecraft.wiki/images/Paper_JE2_BE2.png" alt="Brief">
         </div>
+        
     </div>
 
     <script>
-        // Funktion zum Auf- und Zuklappen des Briefes
+        // Funktion zum Auf- und Zuklappen der Anzeige
         window.toggleLetter = function(e) {
             e.stopPropagation();
-            const container = document.getElementById('letterContainer');
+            const container = document.getElementById('widgetContainer');
             container.classList.toggle('open');
         }
 
-        // Automatisches Schließen, wenn man irgendwoanders hinklickt
+        // Schließt das Fenster, wenn man woanders hin klickt
         document.addEventListener('click', (e) => {
-            const container = document.getElementById('letterContainer');
+            const container = document.getElementById('widgetContainer');
             if (!container.contains(e.target)) {
                 container.classList.remove('open');
             }
@@ -324,14 +339,14 @@
             const x = e.clientX || (e.changedTouches && e.changedTouches[0].clientX);
             const y = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
 
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 6; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'click-particle';
                 particle.style.left = x + 'px';
                 particle.style.top = y + 'px';
                 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = 20 + Math.random() * 30;
+                const velocity = 15 + Math.random() * 25;
                 const tx = Math.cos(angle) * velocity;
                 const ty = Math.sin(angle) * velocity;
                 
