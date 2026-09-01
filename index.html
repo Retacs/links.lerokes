@@ -16,10 +16,9 @@
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             
-            /* Minecraft Book/Letter Colors */
-            --paper-bg: #d1b98b;
-            --paper-border: #3a2818;
-            --paper-text: #111111;
+            /* Marketplace Promo Colors */
+            --promo-purple: #b057f8;
+            --promo-bg: #151515;
         }
 
         body, html { 
@@ -27,8 +26,6 @@
             font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             color: var(--text-main); 
             background-color: var(--bg-base);
-            /* Optional: Ein dezenter Minecraft-Crosshair-Cursor für Desktop */
-            cursor: crosshair;
         }
 
         .mc-font {
@@ -52,12 +49,10 @@
         
         .profile-avatar {
             width: 96px; height: 96px; 
-            /* Blockig, falls du den echten MC Vibe willst, ansonsten 50% für rund */
-            border-radius: 8px; 
+            border-radius: 50%; /* Wieder perfekt rund */
             object-fit: cover; 
             margin-bottom: 15px;
             border: 2px solid #333;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
         }
         
         .profile-name {
@@ -69,7 +64,7 @@
             font-size: 0.95rem; font-weight: normal; color: var(--text-muted); margin: 0;
         }
 
-        /* --- LINKS (CLEAN & INVENTORY SLOT HOVER) --- */
+        /* --- LINKS (CLEAN & MINIMALISTISCH) --- */
         .links-container {
             width: 100%; display: flex; flex-direction: column; gap: 12px;
         }
@@ -77,18 +72,15 @@
         .link-btn {
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; background: var(--btn-bg); color: #fff; text-decoration: none;
-            padding: 18px 20px; border-radius: 0px; /* Eckig für Minecraft Vibe */
+            padding: 16px 20px; border-radius: 8px; /* Leichte, moderne Rundung */
             font-size: 1rem;
-            transition: all 0.1s ease; box-sizing: border-box; 
-            border: 2px solid var(--btn-border);
-            cursor: pointer;
+            transition: all 0.15s ease; box-sizing: border-box; 
+            border: 1px solid var(--btn-border);
         }
 
         .link-btn:hover {
             background: var(--btn-hover);
-            border-color: #444;
-            /* Minecraft Inventory Slot Effekt beim Drübergehen */
-            box-shadow: inset 3px 3px 0px rgba(0,0,0,0.9), inset -3px -3px 0px rgba(255,255,255,0.05);
+            border-color: #3f3f46;
         }
 
         .btn-left { display: flex; align-items: center; flex: 1; }
@@ -96,70 +88,67 @@
         .btn-right { flex: 1; display: flex; justify-content: flex-end; }
 
         .link-icon { width: 20px; height: 20px; fill: #fff; }
-        .dots-icon { width: 20px; height: 20px; fill: #444; transition: fill 0.1s ease;}
+        .dots-icon { width: 20px; height: 20px; fill: #444; transition: fill 0.15s ease;}
 
         .link-btn:hover .dots-icon { fill: #888; }
 
-        /* --- MINECRAFT BRIEF POPUP (ADBLOCKER SICHER) --- */
-        .mc-letter-popup {
+        /* --- MARKETPLACE PROMO POPUP (ADBLOCKER SICHER) --- */
+        .mc-promo-popup {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            width: 240px;
-            background-color: var(--paper-bg);
-            border: 4px solid var(--paper-border);
+            width: 230px;
+            background-color: var(--promo-bg);
+            border: 2px solid #333;
             padding: 18px 15px;
             box-sizing: border-box;
-            /* Papier-Textur Schatten & harter Minecraft Drop-Shadow */
-            box-shadow: inset -2px -2px 0px rgba(0,0,0,0.15), inset 2px 2px 0px rgba(255,255,255,0.3), 8px 8px 0px rgba(0,0,0,1);
+            /* Harter dunkler Schatten + dezenter lila Glow wie im Marketplace */
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.9), 0px 0px 15px rgba(176, 87, 248, 0.15);
             transform: rotate(-3deg);
             z-index: 999999;
-            transition: transform 0.15s ease;
-            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;
+            border-radius: 6px;
         }
 
-        .mc-letter-popup:hover {
-            transform: rotate(0deg) translate(-2px, -2px);
+        .mc-promo-popup:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 0px 15px 35px rgba(0,0,0,1), 0px 0px 25px rgba(176, 87, 248, 0.3);
+            border-color: #555;
         }
 
-        .mc-letter-title {
-            color: var(--paper-text); font-size: 1.1rem; margin: 0;
-            text-decoration: underline; text-decoration-thickness: 2px;
-            letter-spacing: 0.05em;
+        .mc-promo-title {
+            color: var(--promo-purple); font-size: 1.15rem; margin: 0;
+            line-height: 1.2; text-shadow: 2px 2px 0px #000;
         }
 
-        .mc-letter-desc {
-            color: #2a1f14; font-size: 0.8rem; margin: 0; line-height: 1.5; 
+        .mc-promo-desc {
+            color: #ccc; font-size: 0.8rem; margin: 0; line-height: 1.4; 
+            font-family: "Segoe UI", sans-serif;
         }
 
-        /* Echter klassischer Minecraft GUI Button */
-        .mc-letter-btn {
-            background-color: #c6c6c6; 
-            color: #000; text-decoration: none;
-            padding: 10px 12px; font-size: 0.9rem; 
-            /* Typische MC Button Ränder (Weiß oben/links, Grau unten/rechts) */
+        .mc-promo-btn {
+            background-color: var(--promo-purple); 
+            color: #fff; text-decoration: none;
+            padding: 8px 12px; font-size: 0.9rem; 
             border: 2px solid #000;
-            border-top-color: #ffffff;
-            border-left-color: #ffffff;
-            border-bottom-color: #555555;
-            border-right-color: #555555;
+            box-shadow: 3px 3px 0px rgba(0,0,0,1);
             display: flex; align-items: center; justify-content: center; 
             width: 100%; box-sizing: border-box;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
-            cursor: pointer;
+            text-shadow: 1px 1px 0px #000;
+            transition: 0.1s;
+            margin-top: 5px;
         }
         
-        .mc-letter-btn:hover { 
-            background-color: #90a8ff; /* Bläulicher Hover-Effekt wie im Game */
+        .mc-promo-btn:hover { 
+            background-color: #c073ff; 
+            transform: translate(-2px, -2px); 
+            box-shadow: 5px 5px 0px rgba(0,0,0,1); 
         }
         
-        .mc-letter-btn:active { 
-            /* Button drückt sich optisch rein */
-            border-top-color: #555555;
-            border-left-color: #555555;
-            border-bottom-color: #ffffff;
-            border-right-color: #ffffff;
-            background-color: #7b94ff;
+        .mc-promo-btn:active { 
+            transform: translate(2px, 2px); 
+            box-shadow: 1px 1px 0px rgba(0,0,0,1); 
         }
 
         /* Click Particles */
@@ -167,17 +156,15 @@
         @keyframes particlePop { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; } }
 
         @media (max-width: 768px) {
-            .mc-letter-popup {
+            .mc-promo-popup {
                 bottom: 15px;
                 right: 15px;
-                width: 200px;
-                padding: 12px;
-                border-width: 3px;
-                box-shadow: inset -2px -2px 0px rgba(0,0,0,0.15), inset 2px 2px 0px rgba(255,255,255,0.3), 5px 5px 0px rgba(0,0,0,1);
+                width: 190px;
+                padding: 15px;
             }
-            .mc-letter-title { font-size: 0.95rem; }
-            .mc-letter-desc { font-size: 0.75rem; }
-            .mc-letter-btn { font-size: 0.8rem; padding: 8px; }
+            .mc-promo-title { font-size: 0.95rem; }
+            .mc-promo-desc { font-size: 0.75rem; }
+            .mc-promo-btn { font-size: 0.8rem; padding: 8px; }
         }
     </style>
 </head>
@@ -186,7 +173,8 @@
     <div id="linktree-wrapper">
         
         <div class="profile-section">
-            <img src="profil.png?v=2" alt="Lerokes" class="profile-avatar">
+            <!-- ?v=3 zwingt den Laptop-Browser, das Bild neu zu laden (Cache-Busting) -->
+            <img src="profil.png?v=3" alt="Lerokes" class="profile-avatar">
             <h1 class="profile-name mc-font">Lerokes</h1>
             <p class="profile-bio mc-font">Oioioi</p>
         </div>
@@ -246,11 +234,11 @@
         </div>
     </div>
 
-    <!-- MINECRAFT BRIEF POPUP (Umbenannt für Adblocker) -->
-    <div class="mc-letter-popup">
-        <h3 class="mc-letter-title mc-font">Nicht verpassen</h3>
-        <p class="mc-letter-desc mc-font">Unterstütze das Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
-        <a href="https://lerokes.com" class="mc-letter-btn mc-font">Jetzt Bewerben</a>
+    <!-- MARKETPLACE PROMO POPUP -->
+    <div class="mc-promo-popup">
+        <h3 class="mc-promo-title mc-font">Nicht verpassen</h3>
+        <p class="mc-promo-desc">Unterstütze das Lerokes-Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
+        <a href="https://lerokes.com" class="mc-promo-btn mc-font">Jetzt Bewerben</a>
     </div>
 
     <script>
