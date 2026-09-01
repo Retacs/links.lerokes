@@ -18,7 +18,7 @@
             
             /* Marketplace Ad Colors */
             --ad-yellow: #FFD700;
-            --ad-bg: #1e1e1e;
+            --ad-bg: #111111;
         }
 
         body, html { 
@@ -40,7 +40,8 @@
         #linktree-wrapper {
             display: flex; flex-direction: column; align-items: center;
             width: 100%; max-width: 600px; margin: 0 auto; 
-            padding: 50px 20px 60px 20px; box-sizing: border-box; 
+            /* Extra padding unten, damit die Links auf dem Handy nicht vom Popup verdeckt werden */
+            padding: 50px 20px 150px 20px; box-sizing: border-box; 
         }
 
         /* --- PROFIL BEREICH --- */
@@ -71,7 +72,6 @@
         /* --- LINKS (SCHWARZ/WEISS/GRAU) --- */
         .links-container {
             width: 100%; display: flex; flex-direction: column; gap: 14px;
-            margin-bottom: 50px;
         }
 
         .link-btn {
@@ -102,60 +102,77 @@
         .link-btn:hover .link-icon { opacity: 1; }
         .link-btn:hover .dots-icon { fill: #fff; }
 
-        /* --- MARKETPLACE AD CARD (BEWERBUNG) --- */
-        .ad-card {
-            width: 100%; background: var(--ad-bg); border: 2px solid #333;
-            border-radius: 4px; padding: 25px; box-sizing: border-box;
-            display: flex; align-items: center; gap: 20px;
-            box-shadow: 0px 0px 30px rgba(255, 215, 0, 0.05);
-            position: relative; overflow: hidden;
+        /* --- SCHIEFES POPUP AD (BEWERBUNG) --- */
+        .ad-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 240px;
+            background: var(--ad-bg);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 5px 10px 30px rgba(0,0,0,0.9), 0px 0px 20px rgba(255, 215, 0, 0.05);
+            /* Hier wird es leicht schief gestellt */
+            transform: rotate(-4deg);
+            z-index: 100;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;
         }
 
-        /* Subtiler Glow-Effekt im Hintergrund der Karte */
-        .ad-card::before {
-            content: ''; position: absolute; top: -50%; right: -20%;
-            width: 200px; height: 200px; background: var(--ad-yellow);
-            filter: blur(80px); opacity: 0.1; pointer-events: none;
+        /* Beim Hover richtet es sich gerade auf */
+        .ad-popup:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0px 15px 40px rgba(0,0,0,1), 0px 0px 30px rgba(255, 215, 0, 0.15);
+            border-color: #555;
         }
 
-        .ad-content { flex: 1; display: flex; flex-direction: column; align-items: flex-start; z-index: 2;}
-        
         .ad-title {
-            color: var(--ad-yellow); font-size: 1.6rem; margin: 0 0 10px 0;
-            line-height: 1.1; text-shadow: 2px 2px 0px #000;
+            color: var(--ad-yellow); font-size: 1.2rem; margin: 0;
+            line-height: 1.2; text-shadow: 2px 2px 0px #000;
         }
 
         .ad-desc {
-            color: #ccc; font-size: 0.9rem; margin: 0 0 20px 0; line-height: 1.5;
+            color: #ccc; font-size: 0.85rem; margin: 0; line-height: 1.4;
         }
 
         .ad-btn {
             background: var(--ad-yellow); color: #000; text-decoration: none;
-            padding: 10px 20px; font-size: 1rem; border: 2px solid #000;
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px;
-            transition: 0.1s;
+            padding: 8px 16px; font-size: 0.95rem; border: 2px solid #000;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;
+            transition: 0.1s; margin-top: 5px;
         }
         
         .ad-btn:hover { background: #ffe44d; transform: translate(-2px, -2px); box-shadow: 5px 5px 0px rgba(0,0,0,0.6); }
         .ad-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px rgba(0,0,0,0.5); }
 
-        .ad-image-wrapper {
-            width: 80px; height: 80px; flex-shrink: 0;
-            background: #111; border: 2px solid #444; padding: 10px;
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.15); z-index: 2;
-        }
-
-        .ad-image { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
-
-        /* Click Particles (Jetzt in Weiß/Grau) */
+        /* Click Particles */
         .click-particle { position: fixed; width: 8px; height: 8px; background: #fff; pointer-events: none; z-index: 9999; animation: particlePop 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; }
         @keyframes particlePop { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; } }
 
-        @media (max-width: 500px) {
-            .ad-card { flex-direction: column; text-align: center; align-items: center; padding: 20px;}
-            .ad-content { align-items: center; }
-            .ad-image-wrapper { display: none; /* Versteckt das Bild auf kleinen Handys für mehr Platz */ }
+        /* --- MOBILE ANPASSUNG --- */
+        @media (max-width: 768px) {
+            .ad-popup {
+                bottom: 20px;
+                right: 15px;
+                width: 200px;
+                padding: 15px;
+                transform: rotate(-3deg);
+            }
+            .ad-title { font-size: 1rem; }
+            .ad-desc { font-size: 0.75rem; }
+            .ad-btn { font-size: 0.85rem; padding: 6px 12px; }
+        }
+        
+        @media (max-width: 400px) {
+            .ad-popup {
+                bottom: 15px;
+                right: 10px;
+                width: 170px;
+                padding: 12px;
+            }
+            .ad-desc { display: none; /* Text ausblenden auf sehr kleinen Bildschirmen für mehr Platz */ }
         }
     </style>
 </head>
@@ -232,20 +249,13 @@
             </a>
 
         </div>
+    </div>
 
-        <!-- MARKETPLACE AD (BEWERBUNG) -->
-        <div class="ad-card">
-            <div class="ad-content">
-                <h3 class="ad-title mc-font">NICHT VERPASSEN</h3>
-                <p class="ad-desc">Unterstütze das Lerokes-Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
-                <a href="https://lerokes.com" class="ad-btn mc-font">JETZT BEWERBEN &rsaquo;</a>
-            </div>
-            <div class="ad-image-wrapper">
-                <!-- Icon: Ein Schwert, Buch oder ein Minecraft-Kopf. Du kannst das src austauschen -->
-                <img src="https://minotar.net/helm/Lero/64.png" alt="Mod" class="ad-image">
-            </div>
-        </div>
-
+    <!-- SCHIEFES POPUP AD (BEWERBUNG) -->
+    <div class="ad-popup">
+        <h3 class="ad-title mc-font">Nicht verpassen</h3>
+        <p class="ad-desc">Unterstütze das Lerokes-Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
+        <a href="https://lerokes.com" class="ad-btn mc-font">Jetzt Bewerben &rsaquo;</a>
     </div>
 
     <script>
