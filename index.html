@@ -10,13 +10,13 @@
     <style>
         :root {
             --bg-base: #000000;
-            --btn-bg: #0d0d0f;
+            --btn-bg: #09090b;
             --btn-border: #27272a;
-            --btn-hover: #1a1a1f;
+            --btn-hover: #18181b;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             
-            /* Marketplace Ad Colors */
+            /* Popup Colors */
             --ad-yellow: #FFD700;
             --ad-bg: #111111;
         }
@@ -26,8 +26,6 @@
             font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             color: var(--text-main); 
             background-color: var(--bg-base);
-            overflow-x: hidden; 
-            display: flex; flex-direction: column; align-items: center;
         }
 
         .mc-font {
@@ -40,139 +38,115 @@
         #linktree-wrapper {
             display: flex; flex-direction: column; align-items: center;
             width: 100%; max-width: 600px; margin: 0 auto; 
-            /* Extra padding unten, damit die Links auf dem Handy nicht vom Popup verdeckt werden */
-            padding: 50px 20px 150px 20px; box-sizing: border-box; 
+            padding: 40px 20px 120px 20px; box-sizing: border-box; 
         }
 
         /* --- PROFIL BEREICH --- */
         .profile-section {
             display: flex; flex-direction: column; align-items: center; 
-            margin-bottom: 40px; text-align: center;
+            margin-bottom: 30px; text-align: center;
         }
         
         .profile-avatar {
-            width: 110px; height: 110px; 
+            width: 96px; height: 96px; 
             border-radius: 50%; 
             object-fit: cover; 
             margin-bottom: 15px;
-            border: 2px solid #333;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid #333;
         }
         
         .profile-name {
-            font-size: 2rem; margin: 0 0 5px 0; color: #fff;
+            font-size: 1.5rem; margin: 0 0 4px 0; color: #fff;
             letter-spacing: 0.05em; 
         }
         
         .profile-bio {
-            font-size: 1rem; font-weight: 500; color: var(--text-muted); margin: 0;
-            text-transform: uppercase; letter-spacing: 0.1em;
+            font-size: 0.9rem; font-weight: normal; color: var(--text-muted); margin: 0;
         }
 
-        /* --- LINKS (SCHWARZ/WEISS/GRAU) --- */
+        /* --- LINKS (FLAT & CLEAN) --- */
         .links-container {
-            width: 100%; display: flex; flex-direction: column; gap: 14px;
+            width: 100%; display: flex; flex-direction: column; gap: 12px;
         }
 
         .link-btn {
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; background: var(--btn-bg); color: #fff; text-decoration: none;
-            padding: 20px 24px; border-radius: 12px; font-size: 1.1rem;
-            transition: all 0.2s ease; box-sizing: border-box; 
+            padding: 16px 20px; border-radius: 8px; font-size: 1rem;
+            transition: background 0.15s ease, border-color 0.15s ease; box-sizing: border-box; 
             border: 1px solid var(--btn-border);
-            letter-spacing: 0.05em;
         }
 
         .link-btn:hover {
-            transform: scale(1.02);
             background: var(--btn-hover);
-            border-color: #666;
-            box-shadow: 0px 4px 20px rgba(255,255,255,0.05);
+            border-color: #3f3f46;
         }
-        
-        .link-btn:active { transform: scale(0.98); }
 
-        .btn-left { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .btn-left { display: flex; align-items: center; flex: 1; }
         .btn-center { flex: 2; text-align: center; }
         .btn-right { flex: 1; display: flex; justify-content: flex-end; }
 
-        .link-icon { width: 22px; height: 22px; fill: #fff; opacity: 0.9; }
-        .dots-icon { width: 20px; height: 20px; fill: #666; }
+        .link-icon { width: 20px; height: 20px; fill: #fff; }
+        .dots-icon { width: 20px; height: 20px; fill: #555; transition: fill 0.15s ease;}
 
-        .link-btn:hover .link-icon { opacity: 1; }
-        .link-btn:hover .dots-icon { fill: #fff; }
+        .link-btn:hover .dots-icon { fill: #888; }
 
-        /* --- SCHIEFES POPUP AD (BEWERBUNG) --- */
+        /* --- KLEINES SCHIEFES POPUP (BEWERBUNG) --- */
         .ad-popup {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 240px;
+            bottom: 20px;
+            right: 20px;
+            width: 220px;
             background: var(--ad-bg);
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 20px;
+            border: 2px solid #222;
+            border-radius: 6px;
+            padding: 15px;
             box-sizing: border-box;
-            box-shadow: 5px 10px 30px rgba(0,0,0,0.9), 0px 0px 20px rgba(255, 215, 0, 0.05);
-            /* Hier wird es leicht schief gestellt */
-            transform: rotate(-4deg);
-            z-index: 100;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-            display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+            transform: rotate(-3deg);
+            z-index: 999999;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center;
         }
 
-        /* Beim Hover richtet es sich gerade auf */
         .ad-popup:hover {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0px 15px 40px rgba(0,0,0,1), 0px 0px 30px rgba(255, 215, 0, 0.15);
-            border-color: #555;
+            transform: rotate(0deg);
+            border-color: #444;
         }
 
         .ad-title {
-            color: var(--ad-yellow); font-size: 1.2rem; margin: 0;
-            line-height: 1.2; text-shadow: 2px 2px 0px #000;
+            color: var(--ad-yellow); font-size: 1.1rem; margin: 0;
+            line-height: 1.2; text-shadow: 1px 1px 0px #000;
         }
 
         .ad-desc {
-            color: #ccc; font-size: 0.85rem; margin: 0; line-height: 1.4;
+            color: #aaa; font-size: 0.8rem; margin: 0; line-height: 1.4; font-family: "Segoe UI", sans-serif;
         }
 
         .ad-btn {
             background: var(--ad-yellow); color: #000; text-decoration: none;
-            padding: 8px 16px; font-size: 0.95rem; border: 2px solid #000;
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;
-            transition: 0.1s; margin-top: 5px;
+            padding: 6px 12px; font-size: 0.85rem; border: 2px solid #000;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;
+            transition: 0.1s; margin-top: 4px;
         }
         
-        .ad-btn:hover { background: #ffe44d; transform: translate(-2px, -2px); box-shadow: 5px 5px 0px rgba(0,0,0,0.6); }
-        .ad-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px rgba(0,0,0,0.5); }
+        .ad-btn:hover { background: #ffe44d; transform: translate(-2px, -2px); box-shadow: 4px 4px 0px rgba(0,0,0,0.6); }
+        .ad-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px rgba(0,0,0,0); }
 
-        /* Click Particles */
-        .click-particle { position: fixed; width: 8px; height: 8px; background: #fff; pointer-events: none; z-index: 9999; animation: particlePop 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; }
+        /* Click Particles (Ganz dezent) */
+        .click-particle { position: fixed; width: 6px; height: 6px; background: #fff; pointer-events: none; z-index: 999999; animation: particlePop 0.4s ease-out forwards; }
         @keyframes particlePop { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; } }
 
-        /* --- MOBILE ANPASSUNG --- */
         @media (max-width: 768px) {
             .ad-popup {
-                bottom: 20px;
-                right: 15px;
-                width: 200px;
-                padding: 15px;
-                transform: rotate(-3deg);
-            }
-            .ad-title { font-size: 1rem; }
-            .ad-desc { font-size: 0.75rem; }
-            .ad-btn { font-size: 0.85rem; padding: 6px 12px; }
-        }
-        
-        @media (max-width: 400px) {
-            .ad-popup {
                 bottom: 15px;
-                right: 10px;
-                width: 170px;
+                right: 15px;
+                width: 180px;
                 padding: 12px;
             }
-            .ad-desc { display: none; /* Text ausblenden auf sehr kleinen Bildschirmen für mehr Platz */ }
+            .ad-title { font-size: 0.95rem; }
+            .ad-desc { font-size: 0.75rem; }
+            .ad-btn { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -181,7 +155,8 @@
     <div id="linktree-wrapper">
         
         <div class="profile-section">
-            <img src="avatar.jpg" alt="Lerokes" class="profile-avatar" onerror="this.src='https://minotar.net/helm/Lero/150.png'">
+            <!-- WICHTIG: Die Datei im GitHub MUSS exakt "profil.png" heißen (alles klein geschrieben) -->
+            <img src="profil.png" alt="Lerokes" class="profile-avatar">
             <h1 class="profile-name mc-font">Lerokes</h1>
             <p class="profile-bio">Oioioi</p>
         </div>
@@ -253,9 +228,9 @@
 
     <!-- SCHIEFES POPUP AD (BEWERBUNG) -->
     <div class="ad-popup">
-        <h3 class="ad-title mc-font">Nicht verpassen</h3>
-        <p class="ad-desc">Unterstütze das Lerokes-Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
-        <a href="https://lerokes.com" class="ad-btn mc-font">Jetzt Bewerben &rsaquo;</a>
+        <h3 class="ad-title mc-font">NICHT VERPASSEN</h3>
+        <p class="ad-desc">Unterstütze das Team! Bewirb dich jetzt als Twitch Mod oder VIP.</p>
+        <a href="https://lerokes.com" class="ad-btn mc-font">JETZT BEWERBEN &rsaquo;</a>
     </div>
 
     <script>
@@ -265,14 +240,14 @@
             const x = e.clientX || (e.changedTouches && e.changedTouches[0].clientX);
             const y = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 8; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'click-particle';
                 particle.style.left = x + 'px';
                 particle.style.top = y + 'px';
                 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = 20 + Math.random() * 40;
+                const velocity = 20 + Math.random() * 30;
                 const tx = Math.cos(angle) * velocity;
                 const ty = Math.sin(angle) * velocity;
                 
@@ -280,7 +255,7 @@
                 particle.style.setProperty('--ty', ty + 'px');
                 
                 document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 500);
+                setTimeout(() => particle.remove(), 400);
             }
         };
     </script>
